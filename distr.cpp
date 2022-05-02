@@ -23,18 +23,17 @@ void DataRead( void )
    std::string str;	
    
    
-   /*
+   
    file.open("distr.dat",std::ios::in); 
    
    
    while(true) //while(read_from_file != 1) //while(!file.eof())
     {   
       printf("%d  read...\n",i);
-      //getch();
       file>> Xc[i] >> Yc[i] >> Area >> dump2;
       if(file.eof()) break;
       i++; 
     }
     file.close();
-	*/
+	
 }
