@@ -58,8 +58,6 @@ double Segmentation( double cellXS, double cellYS, int jN, double XOffset, doubl
 	
 	for(i = 0; i <= N; i++)
 	{
-	  //printf("Test2  %d  %d\n", i, N);
-	  //getch();
 	  XcCurr[i] = Xc[i] + XOffset;
 	  YcCurr[i] = Yc[i] + YOffset;
 	  if(XcCurr[i] > XLength)
@@ -70,29 +68,19 @@ double Segmentation( double cellXS, double cellYS, int jN, double XOffset, doubl
 	  yCell = YcCurr[i] / cellYS;
 	  xCellNumber = int(xCell);
 	  yCellNumber = int(yCell);	
-	  //printf("%f  %f %f  %f\n", xCell, yCell);
-	  //getch();
 	  CellNumber = (xCellNumber + 1)  + yCellNumber * IntPower(2,jN);
-	  //printf("%d  %d  %d  %d\n", xCellNumber+1, yCellNumber * IntPower(2,jN), CellNumber, jN);
-	  //getch();
 	  LocalNodeNumber[CellNumber] = LocalNodeNumber[CellNumber] + 1;
-	  //printf("%d  %d\n",LocalNodeNumber[CellNumber], CellNumber);
-	  //getch();
 	}
 	
-	//printf("Test3\n");
-	//getch();
 	for(i = 1; i <= CellN; i++)
 	{
 	   localdensity2 = double(LocalNodeNumber[i]) - AverageDensity;
-	   //printf("%f  %d  %f\n",localdensity2, LocalNodeNumber[i], AverageDensity);
-	   //getch();
+
 	   if( localdensity2 < 0)
 	     localdensity2 = -1 *  localdensity2;
 	    
 	  hOffset = hOffset + localdensity2; 
     }
-    //printf("check1\n");
     
     return hOffset;
 }
@@ -130,7 +118,6 @@ void InhomCalc( void )
    offN = 10; //10;
    h = 0.0;
    
-   //ЦИКЛ по разбиениям, 10 - максимальное разбиение
    for(jN = 1; jN <= r; jN++)
    {
     k = 2 * jN;
@@ -142,43 +129,22 @@ void InhomCalc( void )
     offsetX = cellXS / double(offN);
 	offsetY = cellYS / double(offN);
 	l = 1;
-	/*
-	for(i = 0; i <= N + 10; i++)
-	{
-	  printf("%d\n",LocalNodeNumber[i]);
-	  LocalNodeNumber[i] = 0;
-    }
-    getch();
-	//CYCLE по оффсету для заданного разбиения!!!!!!!!!!!!
-	for(i = 0; i <=1500000; i++)
-	  LocalNodeNumber[i] = 0;
-	*/  
-	for(i = 0; i < offN; i++) //смещение вдоль x
+	for(i = 0; i < offN; i++) //Г±Г¬ГҐГ№ГҐГ­ГЁГҐ ГўГ¤Г®Г«Гј x
 	{
 	  for(j = 0; j < offN; j++)
 	  { 
 	    XOffset = double(j) * offsetX; 
-		YOffset = double(i) * offsetY; 
-		//printf("Test1\n");
-		//getch();
+		YOffset = double(i) * offsetY;
 		hOffsetMax[l] = Segmentation( cellXS, cellYS, jN, XOffset, YOffset, CellN );
-		//printf("%d\n",hOffsetMax[l]);
-		//getch();
 		printf("l = %d  jN = %d\n", l, jN);
-		//getch();
-		//for(i = 0; i <= N; i++)
-	      //LocalNodeNumber[i] = 0;
 		l++;	
       }
     }
-      ///поиск максимума коэффициента неодноодности!!!!
       hcurr = MaxValue(l);
       printf("%f\n",hcurr);
       
-      /// умножение на весовой коэффициент 
+     
       hcurr = pow(w, 1-jN) * hcurr; 
-      
-      /// суммирование умноженных значений с последующей нормировкой
      h = h + hcurr;
    }
    
