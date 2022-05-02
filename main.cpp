@@ -48,7 +48,7 @@ int main( void )
     F = fopen("h.dat","w+");
     fprintf(F,"%f",h);
     fclose(F);
-    //getch();
+    
     return 0;   
   }
   
@@ -77,8 +77,8 @@ int main( void )
 	XLength = 258.0 * 1E-6;
     YLength = 258.0 * 1E-6;
     rNum = 100;
-    /* генерация распределения точек*/
-    //fileC.open("dataC.dat",std::ios::in); 
+    
+    /* Read input data */
     F = fopen("dataC.dat","w+");
 	for(i = 1; i <= rNum; i++)
     { 
@@ -86,27 +86,12 @@ int main( void )
       PositionAreaFlag = 2;
       InhomCalc();
       Randh = Randh + h;
-      //fileC << i << "  " << h << "\n";
       fprintf(F,"%d  %f\n",i, h);
     }
 	//Randh = Randh / (double)rNum;
 	printf("%f  h = %f\n", Randh, Randh / (double)rNum);
     getch();
-    //fileC.close();
     fclose(F);
     return 0;      
   }
-  
-  
-  
-  
-  //test = IntPower(3,15);
-  //printf("%d", test);
-  //getch();
-  
-  
-  
-  //XLength = 200; 
-  //YLength = 200;
-  
 }
