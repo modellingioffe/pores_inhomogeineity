@@ -22,7 +22,7 @@ void DataRead( void )
    std::fstream file;
    std::string str;	
    
-   
+   # kvold
    
    file.open("distr.dat",std::ios::in); 
    
